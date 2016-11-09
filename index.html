@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Example</title>
+    <style>
+        main ul {
+            list-style-type: none;
+            padding: 0;
+            font-size: 0;
+        }
+
+        main li {
+            display: inline-block;
+            vertical-align: top;
+            width: 400px;
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        .image-wrapper img,
+        .image-wrapper video,
+        .image-wrapper iframe {
+            max-width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Flockler Plugin</h1></header>
+        <button>Carousel</button>
+    <main>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi qui rerum modi cumque soluta ex dolorum quibusdam, libero quo enim placeat omnis voluptas asperiores explicabo, doloremque vitae magnam! Pariatur omnis, fugiat ipsa nam reprehenderit
+            qui perspiciatis. Architecto adipisci obcaecati voluptates animi officia minus temporibus suscipit veniam aliquam, omnis sed aperiam, facilis voluptas itaque facere molestias ratione officiis, sunt consequuntur quia corporis at expedita. Repudiandae
+            adipisci facilis inventore voluptas voluptate nulla, eaque esse fugiat dolorum impedit iusto architecto et aliquid quaerat, numquam perferendis tempora asperiores doloribus assumenda aspernatur voluptatem blanditiis. Placeat autem suscipit
+            excepturi, vero sint magni quidem aspernatur corporis numquam.</p>
+        <div id="stickMyFlocklerHere"></div>
+    </main>
+    <hr>
+    <footer>
+        <div id="stickMyOtherFlocklerHere"></div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="flockler.js"></script>
+    <script src="infinite-carousel.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('#stickMyFlocklerHere').flockler()
+
+            $('button').on('click', function(){
+              $('#stickMyFlocklerHere ul').infinitecarousel()
+            })
+
+
+
+            let options = {
+                sectionid: '17164'
+            }
+
+            $('#stickMyOtherFlocklerHere').flockler(options)
+
+
+        })
+    </script>
+</body>
+
+</html>
