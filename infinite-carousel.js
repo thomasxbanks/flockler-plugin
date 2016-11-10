@@ -26,7 +26,7 @@
         let caro = this.options
         let wrapper = this.element
         let $slide = $(wrapper).find(caro.slide)
-        console.log($slide[0])
+        
         let slideML = window.getComputedStyle($slide[0], null)['margin-left']
         let slideMR = window.getComputedStyle($slide[0], null)['margin-right']
             //let margins = (~~(slideML.replace('px', '')) + ~~(slideMR.replace('px', '')))
