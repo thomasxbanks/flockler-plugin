@@ -22,13 +22,20 @@
 
     Plugin.prototype.init = function() {
         //console.log(this)
+        // Define your API url
         const apiEndPoint = 'https://api.flockler.com/v1/sites/' + this.options.siteid + '/sections/' + this.options.sectionid + '/articles?'
+            // Declare your variables
         let id, image, text, title, type, username, userpic, userurl, video
+            // Create the empty array for your Flockler objects
         let feed = []
+            // Define the current Flockler block
         let thisFlockler = this.element.id
-
+            // Add the container to the Flockler block
+        $(this.element).append("<ul id='flockler-" + thisFlockler + "' />")
+            // Call the API
         $.get(apiEndPoint, function(data) {
             for (let i = 0; i < data.articles.length; i++) {
+                // Define shorthand for current article
                 let article = data.articles[i]
                     // log for debug
                     //console.log(article)
@@ -71,6 +78,7 @@
                     text = ''
                 }
 
+                // Create the Flockler Item object
                 let fi = {
                     id: id,
                     type: type,
@@ -82,24 +90,17 @@
                     title: title,
                     text: text
                 }
-
+                // Add each Flockler Item object to the array
                 feed.push(fi)
+                // Add each item-wrapper to the container in the Flockler block
                 $('ul#flockler-' + thisFlockler).append("<li class='flockler-item-" + feed[i].id + "'></div>")
+                // Run the function that creates the Flockler Item layout
                 makeFlocklerBlock(feed[i], thisFlockler)
             }
         })
-
+        // Log for debug
         //console.log(feed)
-        $(this.element).append("<ul id='flockler-" + thisFlockler + "' />")
 
-        // setTimeout(function() {
-        //     // log for debug
-        //     //console.log(feed)
-        //     for (let i = 0; i < feed.length; i++) {
-        //         $('ul#flockler-' + thisFlockler).append("<li class='flockler-item-" + feed[i].id + "'></div>")
-        //         makeFlocklerBlock(feed[i], thisFlockler)
-        //     }
-        // }, 1000)
     }
 
 
@@ -119,6 +120,7 @@ function makeFlocklerBlock(item, thisFlockler) {
     // log for debug
     //console.log(item)
 
+    // Declare your variables for layout
     let imageEl = "<img src='" + item.image + "' alt='" + item.username + "' />"
     let userpicEl = "<img src='" + item.userpic + "' alt='" + item.username + "' />"
     let usernameEl = "<a href='" + item.userurl + "'>" + item.username + "</a>"
@@ -131,12 +133,15 @@ function makeFlocklerBlock(item, thisFlockler) {
         var videoEl = "<video controls><source src='" + item.video + "' type='video/mp4'></video>"
     }
 
+    // define your template for the layout
     let template = [
         "<div class='image-wrapper'></div>",
         "<div class='content-wrapper'><div class='author-wrapper'>" + userpicEl + usernameEl + "</div></div>"
     ].join("\n")
 
+    // Find the current Flockler item-wrapper in the current Flockler block and add the template
     $('ul#flockler-' + thisFlockler).find('.flockler-item-' + item.id).html(template)
+    // Append the template with current data
     $('.flockler-item-' + item.id).find('.image-wrapper').html((!item.video) ? imageEl : videoEl)
     $('.flockler-item-' + item.id).find('.content-wrapper').append((item.title) ? titleEl : null)
     $('.flockler-item-' + item.id).find('.content-wrapper').append((item.text) ? textEl : null)
